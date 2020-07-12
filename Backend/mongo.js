@@ -1,33 +1,35 @@
 
 const mongoose = require('mongoose')
 
-if (process.argv.length < 3) {
-  console.log('Please provide the password as an argument: node mongo.js <password>')
-  process.exit(1)
-}
-
-const password = process.argv[2]
-//const password = FTSi7kzObw1PUIHB
+//const password = process.argv[2]
+const password = 'FTSi7kzObw1PUIHB'
 const url =
   `mongodb+srv://u-4ist-1:${password}@4ist-db-1.lngm0.mongodb.net/test?retryWrites=true&w=majority`
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 
-const noteSchema = new mongoose.Schema({
-  content: String,
-  date: Date,
-  important: Boolean,
-})
+function getModel(){
+  return {
+    name: String,
+    rank: String,
+    grade: String,
+    homeOfRecordDistance: Number,
+    date: Date,
+    important: Boolean,
+  }
+}
 
-const Note = mongoose.model('Note', noteSchema)
+const soldierSchema = new mongoose.Schema(getModel())
 
-const note = new Note({
-  content: 'HTML is Easy',
+const Soldier = mongoose.model('Soldier', soldierSchema)
+
+const soldier = new Soldier({
+  content: 'HTML is HARD!!!!!!!!!!!!!!!!!!!!!!!!!!',
   date: new Date(),
   important: true,
 })
 
-note.save().then(result => {
+soldier.save().then(result => {
   console.log('note saved!')
   mongoose.connection.close()
 })
