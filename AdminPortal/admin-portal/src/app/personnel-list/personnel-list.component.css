@@ -1,0 +1,5 @@
+.component{
+  border-style: dotted;
+
+  width: 100% - 600px; /* Set the width of the sidebar */
+}
